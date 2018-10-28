@@ -185,10 +185,10 @@ public class AddFragment extends Fragment  {
 
         if (!validateTitle(titleEditText.getText().toString())){
             titleTextIl.setErrorEnabled(true);
-            titleTextIl.setError("请输入长一点的标题");
+            titleTextIl.setError("请输入长一点的标题啊");
         }else if (!validateContent(articleEditText.getText().toString())){
             contentTextIl.setErrorEnabled(true);
-            contentTextIl.setError("内容太短了");
+            contentTextIl.setError("内容太短了啊");
         }else {
             titleTextIl.setErrorEnabled(false);
             contentTextIl.setErrorEnabled(false);
