@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">ToDo</string>
+
+    <string name="drawer_menu_night">夜间模式</string>
+    <string name="drawer_menu_contact">联系人</string>
+    <string name="drawer_menu_setting">设置</string>
+
+    <string name="date_pick_dialog_title">选择时间</string>
+</resources>

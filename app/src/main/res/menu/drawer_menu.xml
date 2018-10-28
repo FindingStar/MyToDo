@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:title="@string/drawer_menu_contact"
+        android:icon="@mipmap/ic_drawer_menu_contacts"
+        />
+    <item
+        android:id="@+id/drawer_item_night"
+        android:title="@string/drawer_menu_night"
+        android:icon="@mipmap/ic_drawer_menu_night"/>
+    <item
+        android:title="@string/drawer_menu_setting"
+        android:icon="@mipmap/ic_drawer_menu_setting"/>
+
+</menu>

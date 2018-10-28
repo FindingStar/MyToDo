@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="250dp">
+
+        <!--Collapsing   ：坍塌
+                    1.  必须实现三层嵌套
+                    2.   app:contentScrim  设置折叠之后的颜色
+                    3.   app:layout_scrollFlags    ：
+                                      scroll：  表示跟随下部内容滑动一起滑动。 exitUntilCollapsed：退出直到坍塌
+                    4.layout_collapseMode:   parallax   合理偏移 -->
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:contentScrim="@color/colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            >
+
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/lyf1"
+                app:layout_collapseMode="parallax"/>
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar_fragment_add"
+                android:layout_width="match_parent"
+                android:layout_height="?android:attr/actionBarSize"
+                app:layout_collapseMode="pin"/>
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <!--就是  为了 支持屏幕外的数据滑动进入的
+                注意：  1.内部子控件只能有一个-->
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/text_il_title"
+                android:layout_margin="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/title_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:hint="标题"
+                    android:maxLines="3"
+                    android:textSize="24sp"/>
+            </android.support.design.widget.TextInputLayout>
+
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_margin="10dp"
+                android:id="@+id/text_il_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/article_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="正文"/>
+            </android.support.design.widget.TextInputLayout>
+
+            <include layout="@layout/fragment_dialog_time_pick"/>
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+    <!--app:elevation       :高度，高度越大，阴影效果越好
+           app:backgroundTint    ：背景色-->
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/float_bt_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        app:elevation="8dp"
+        android:src="@drawable/ic_check_white_48dp"
+        app:backgroundTint="@color/colorAccent"
+    />
+</android.support.design.widget.CoordinatorLayout>

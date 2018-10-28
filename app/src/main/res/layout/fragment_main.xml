@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.design.widget.AppBarLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:elevation="0dp"
+        android:background="@color/colorPrimary">
+        <!--  toolBar
+             1.高度注意下
+             2.设置标题内容在app那  label，-->
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/main_toolbar"
+            app:title="@string/app_name"
+            app:titleMarginStart="50dp"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+            />
+
+        <!--选项切换
+                   1.必须设置tabmode   是否可以滑动
+                      -->
+
+    </android.support.design.widget.AppBarLayout>
+
+    <!-- 这里必须地有 android:name -->
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@color/colorPrimary"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            >
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tablayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:tabMode="scrollable"
+
+                app:tabIndicatorColor="@color/colorAccent"
+                app:tabIndicatorHeight="2dp"
+
+                app:tabSelectedTextColor="@android:color/white"
+                app:tabTextColor="#D3D3D3"
+
+                />
+            <android.support.v4.view.ViewPager
+                android:id="@+id/viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+
+    </LinearLayout>
+
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/float_bt_main"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        app:elevation="8dp"
+        android:src="@drawable/ic_add_white_48dp"
+        app:backgroundTint="@color/colorAccent"/>
+
+
+</android.support.design.widget.CoordinatorLayout>
