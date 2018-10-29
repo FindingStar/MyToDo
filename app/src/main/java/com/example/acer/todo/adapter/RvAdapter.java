@@ -30,6 +30,7 @@ public class RvAdapter extends RecyclerView.Adapter<RvAdapter.VHolder>{
     private Context mContext;
     private List<Affair>affairs=new ArrayList<>();
     private OnRecyclerViewItemClickListener mOnRecyclerViewItemClickListener;
+    private View.OnClickListener mOnClickListener;
 
     public RvAdapter(Context context, List<Affair>affairs){
         mContext=context;
@@ -91,16 +92,24 @@ public class RvAdapter extends RecyclerView.Adapter<RvAdapter.VHolder>{
         holder.image.setImageBitmap(mBitmap);
 
         holder.deleteView.setTag(position);
-        holder.deleteView.setOnClickListener(new View.OnClickListener() {
+        holder.deleteView.setOnClickListener(mOnClickListener);
+        holder.itemView.setOnClickListener(mOnClickListener);
+        mOnClickListener=new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int pos= (int) holder.deleteView.getTag();
-                Affair affair=affairs.get(pos);
-                affairs.remove(pos);
-                AffairDaoDao.getInstance().getAffairDao().deleteByKey(affair.getId());
-                notifyItemRemoved(pos);
+                switch (v.getId()){
+                    case R.id.delete_view:{
+                        int pos= (int) holder.deleteView.getTag();
+                        Affair affair=affairs.get(pos);
+                        affairs.remove(pos);
+                        AffairDaoDao.getInstance().getAffairDao().deleteByKey(affair.getId());
+                        notifyItemRemoved(pos);
+                    }
+                    default:
+                        Toast.makeText(mContext,"点击了itemview",Toast.LENGTH_SHORT).show();
+                }
             }
-        });
+        };
     }
 
     @Override

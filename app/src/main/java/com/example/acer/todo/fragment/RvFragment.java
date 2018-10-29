@@ -99,8 +99,6 @@ public class RvFragment extends Fragment {
             }
         });
 
-
-
         itemTouchHelper=new ItemTouchHelper(new MyItemTouchHelperCallBack());
         itemTouchHelper.attachToRecyclerView(recyclerview);
 
