@@ -29,7 +29,7 @@ public class RvAdapter extends RecyclerView.Adapter<RvAdapter.VHolder>{
     private Bitmap mBitmap;
     private Context mContext;
     private List<Affair>affairs=new ArrayList<>();
-    private OnRecyclerViewItemClickListener mOnRecyclerViewItemClickListener;
+
     private View.OnClickListener mOnClickListener;
 
     public RvAdapter(Context context, List<Affair>affairs){
@@ -51,27 +51,61 @@ public class RvAdapter extends RecyclerView.Adapter<RvAdapter.VHolder>{
 
 
 
-    public class VHolder extends RecyclerView.ViewHolder {
+    public class VHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         private ImageView image;
         private TextView title;
         private TextView article;
         private View deleteView;
+        private Affair affair;
+        private int position;
+
+        private RvHolderClick mRvHolderClickListener;
 
         /*  构造方法  的目的就是 调用父类的 构造，把itemview实例 传进去，由父类操作
         public ViewHolder(View itemView) {
             super(itemView);
         }*/
 
-        public VHolder (LayoutInflater inflater, ViewGroup parent){
+        public VHolder (LayoutInflater inflater, ViewGroup parent,RvHolderClick rvHolderClick){
             super(inflater.inflate(R.layout.rv_item,parent,false));
+
+            mRvHolderClickListener=rvHolderClick;
 
             title=(TextView)itemView.findViewById(R.id.title_item);
             article=(TextView)itemView.findViewById(R.id.article_item);
             image=itemView.findViewById(R.id.item_image);
             deleteView=itemView.findViewById(R.id.delete_view);
 
+//            和之前不易样的是 之前是在bindviewholder 注册监听
+            deleteView.setOnClickListener(this);
+            itemView.setOnClickListener(this);
+
         }
 
+        public void  bind(Affair affair,int position){
+            title.setText(affair.getTitle());
+            article.setText(affair.getArticle());
+            image.setImageBitmap(mBitmap);
+//            deleteView.setTag(affair);
+
+            this.position=position;
+            this.affair=affair;
+        }
+
+        @Override
+        public void onClick(View v) {
+
+            switch (v.getId()){
+                case R.id.delete_view:{
+                    mRvHolderClickListener.deleteViewClick(affair,position);
+//                    神奇的 一批！！  加了break 就 只正确，， 否则 点击deleteview的时候 这两个路都会走
+                    break;
+                }
+                default:
+                    mRvHolderClickListener.itemViewClick();
+                    break;
+            }
+        }
     }
     @NonNull
     @Override
@@ -79,7 +113,21 @@ public class RvAdapter extends RecyclerView.Adapter<RvAdapter.VHolder>{
         LayoutInflater inflater=LayoutInflater.from(parent.getContext());
 
         Log.d(TAG, "onCreateViewHolder: 调用");
-        return new VHolder(inflater,parent);
+        return new VHolder(inflater, parent, new RvHolderClick() {
+            @Override
+            public void itemViewClick() {
+
+                Toast.makeText(mContext,"点击了itemview",Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void deleteViewClick(Affair affair,int pos) {
+
+                        affairs.remove(affair);
+                        AffairDaoDao.getInstance().getAffairDao().deleteByKey(affair.getId());
+                        notifyItemRemoved(pos);
+            }
+        });
     }
 
     @Override
@@ -87,29 +135,10 @@ public class RvAdapter extends RecyclerView.Adapter<RvAdapter.VHolder>{
 
         Log.d(TAG, "onBindViewHolder:调用");
 
-        holder.title.setText(affairs.get(position).getTitle());
-        holder.article.setText(affairs.get(position).getArticle());
-        holder.image.setImageBitmap(mBitmap);
+        Affair affair=affairs.get(position);
 
-        holder.deleteView.setTag(position);
-        holder.deleteView.setOnClickListener(mOnClickListener);
-        holder.itemView.setOnClickListener(mOnClickListener);
-        mOnClickListener=new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switch (v.getId()){
-                    case R.id.delete_view:{
-                        int pos= (int) holder.deleteView.getTag();
-                        Affair affair=affairs.get(pos);
-                        affairs.remove(pos);
-                        AffairDaoDao.getInstance().getAffairDao().deleteByKey(affair.getId());
-                        notifyItemRemoved(pos);
-                    }
-                    default:
-                        Toast.makeText(mContext,"点击了itemview",Toast.LENGTH_SHORT).show();
-                }
-            }
-        };
+        holder.bind(affair,position);
+
     }
 
     @Override
@@ -117,11 +146,10 @@ public class RvAdapter extends RecyclerView.Adapter<RvAdapter.VHolder>{
         return affairs.size();
     }
 
-    public void setOnRecyclerViewItemClickListener(OnRecyclerViewItemClickListener onRecyclerViewItemClickListener) {
-        mOnRecyclerViewItemClickListener = onRecyclerViewItemClickListener;
+
+    public interface RvHolderClick{
+        void itemViewClick();
+        void deleteViewClick(Affair affair,int pos);
     }
 
-    public interface OnRecyclerViewItemClickListener{
-        void onClick(View view,int position);
-    }
 }

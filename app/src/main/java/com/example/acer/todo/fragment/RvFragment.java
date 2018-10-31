@@ -88,16 +88,7 @@ public class RvFragment extends Fragment {
         adapter=new RvAdapter(getContext(),affairs);
         recyclerview.setAdapter(adapter);
 
-        adapter.setOnRecyclerViewItemClickListener(new RvAdapter.OnRecyclerViewItemClickListener() {
-            @Override
-            public void onClick(View view, int position) {
-                fragmentManager=getActivity().getSupportFragmentManager();
-                mainFragment=(MainFragment)fragmentManager.findFragmentByTag("MainFragment");
-               /*
-                跳转到详细界面
-                */
-            }
-        });
+
 
         itemTouchHelper=new ItemTouchHelper(new MyItemTouchHelperCallBack());
         itemTouchHelper.attachToRecyclerView(recyclerview);
