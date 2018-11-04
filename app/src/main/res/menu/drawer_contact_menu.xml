@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:title="好友1"
+        android:icon="@mipmap/ic_launcher"/>
+
+    <item
+        android:title="好友2"
+        android:icon="@mipmap/ic_launcher"/>
+
+    <item
+        android:title="好友3"
+        android:icon="@mipmap/ic_launcher"/>
+</menu>

@@ -6,4 +6,6 @@
     <string name="drawer_menu_setting">设置</string>
 
     <string name="date_pick_dialog_title">选择时间</string>
+    <string name="activity_contact_device_state">当前设备状态</string>
+    <string name="activity_contact_message">消息框</string>
 </resources>

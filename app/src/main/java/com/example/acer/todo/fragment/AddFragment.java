@@ -223,6 +223,7 @@ public class AddFragment extends Fragment  {
                 return super.onOptionsItemSelected(item);
         }
     }
+
     /**
      * 点击item  复用 更新view
      */

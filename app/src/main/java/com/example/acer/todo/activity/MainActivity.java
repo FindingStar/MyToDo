@@ -23,6 +23,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.RadioGroup;
 import android.widget.Toolbar;
@@ -82,8 +83,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         android.support.v4.app.FragmentManager manager=getSupportFragmentManager();
         FragmentTransaction fragmentTransaction=manager.beginTransaction();
         MainFragment mainFragment=MainFragment.newInstance();
-
-
 //      添加标识，，便于fragmentTransaction使用
         fragmentTransaction.add(R.id.fragment_container,mainFragment,"MainFragment");
 
@@ -107,21 +106,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 PreferencesUtil.put(this,"isNight",isNight);
 
-                Log.d(TAG, "onNavigationItemSelected: yes"+AppCompatDelegate.MODE_NIGHT_YES);
-
-                Log.d(TAG, "onNavigationItemSelected:当前模式 "+currentNightMode);
-
 //                finish();
 //                startActivity(new Intent(this,MainActivity.class));
 //                overridePendingTransition(R.anim.animo_alph_close, R.anim.animo_alph_close);
 
             }
+            case R.id.drawer_item_contact:
+                Intent intent=new Intent(this,ContactActivity.class);
+                startActivity(intent);
+                break;
         }
         return true;
-    }
-
-    @Override
-    public boolean dispatchKeyEvent(KeyEvent event) {
-        return super.dispatchKeyEvent(event);
     }
 }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.acer.todo.R;
+import com.example.acer.todo.fragment.AddFragment;
 import com.example.acer.todo.model.Affair;
 import com.example.acer.todo.model.AffairDao;
 import com.example.acer.todo.stroge.AffairDaoDao;
@@ -30,7 +32,6 @@ public class RvAdapter extends RecyclerView.Adapter<RvAdapter.VHolder>{
     private Context mContext;
     private List<Affair>affairs=new ArrayList<>();
 
-    private View.OnClickListener mOnClickListener;
 
     public RvAdapter(Context context, List<Affair>affairs){
         mContext=context;
@@ -98,11 +99,12 @@ public class RvAdapter extends RecyclerView.Adapter<RvAdapter.VHolder>{
             switch (v.getId()){
                 case R.id.delete_view:{
                     mRvHolderClickListener.deleteViewClick(affair,position);
-//                    神奇的 一批！！  加了break 就 只正确，， 否则 点击deleteview的时候 这两个路都会走
+
                     break;
                 }
                 default:
                     mRvHolderClickListener.itemViewClick();
+
                     break;
             }
         }
@@ -118,6 +120,7 @@ public class RvAdapter extends RecyclerView.Adapter<RvAdapter.VHolder>{
             public void itemViewClick() {
 
                 Toast.makeText(mContext,"点击了itemview",Toast.LENGTH_SHORT).show();
+                
             }
 
             @Override
