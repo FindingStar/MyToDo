@@ -76,6 +76,8 @@
                     android:layout_weight="6"
                     android:layout_margin="3dp"
                     android:textColorHint="@color/priority_red"
+                    android:clickable="true"
+                    android:focusableInTouchMode="true"
                     android:maxLines="2"/>
                 <Button
                     android:id="@+id/send"
